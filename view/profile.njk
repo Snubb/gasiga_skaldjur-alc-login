@@ -3,6 +3,7 @@
     <h1> WELCMOE </h1>
     <p> {{ data[0].name }} </p>
     <p> {{ data[0].body }} </p>
-    <p> {{ error }} </p>
-
+    <form action="/login/logout" method="post">
+        <button type="submit" class="btn btn-warning">Log out</button>
+    </form>
 {% endblock %}

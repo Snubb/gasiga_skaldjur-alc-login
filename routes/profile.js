@@ -12,7 +12,8 @@ router.get('/', async (req, res, next) => {
         
         res.render("profile.njk", {data: rows})
       } else {
-        res.render("profile.njk", {error: "you suck"})
+        req.session.error = "You are not logged in";
+        res.redirect("/login");
 
       }
   })
