@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
     await pool.promise()
         .query('SELECT * FROM users')
         .then(([rows, fields]) => {
-            res.render('login.njk', { title: 'Express', error: req.session.error, flash: req.session.flash});
+            res.render('login.njk', { title: 'Express', error: req.session.error, flash: req.session.flash, token: req.session.loginToken});
             req.session.error = null;
             req.session.flash = null;
         })
@@ -39,7 +39,7 @@ router.post('/', async (req, res, next) => {
                 bcrypt.compare(req.body.password, rows[0].password, function(err,result) {
                     if (result) {
                         req.session.loginToken = username;
-                        res.redirect("/profile");
+                        res.redirect("/profile", );
                     } 
                     else {
                         req.session.error = "Wrong password/username";
