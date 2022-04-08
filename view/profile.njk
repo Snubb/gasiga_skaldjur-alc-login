@@ -1,17 +1,25 @@
 {% extends "layout.njk" %}
 {% block  content %}
     <h1> WELCMOE </h1>
-    <p> {{ data[0].name }} </p>
-    <p>Body: {{ data[0].body }} </p>
+    <p>NAme: {{ user.name }}</p>
+    <p>Body: {{ user.userbody }} </p>
     <form action="/login/logout" method="post">
         <button type="submit" class="btn btn-warning">Log out</button>
     </form>
     
     <form action="/profile/editBody" method="post">
     <div class="input-group mb-3">
-        <input disabled hidden name="username" value="{{data[0].name}}">
+        <input hidden name="username" value="{{user.name}}">
         <input name="newBody" id="newBody" required type="text" class="form-control" placeholder="Edit Body" aria-label="Recipient's username" aria-describedby="button-addon2">
         <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Edit body</button>
     </div>
     </form>
+    {% for item in data %}
+                <div class="card meeps-card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{item.title}}</h5>
+                        <p class="card-text">{{item.body}}</p>
+                    </div>
+                </div>
+        {% endfor %}
 {% endblock %}

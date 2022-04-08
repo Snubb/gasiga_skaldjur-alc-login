@@ -39,6 +39,7 @@ router.post('/', async (req, res, next) => {
                 bcrypt.compare(req.body.password, rows[0].password, function(err,result) {
                     if (result) {
                         req.session.loginToken = username;
+                        req.session.uid = rows[0].id;
                         res.redirect("/profile", );
                     } 
                     else {
