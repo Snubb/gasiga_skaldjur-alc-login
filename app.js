@@ -13,6 +13,7 @@ var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var signupRouter = require('./routes/signup');
 var profileRouter = require('./routes/profile');
+var meepsRouter = require('./routes/meeps');
 
 var app = express();
 
@@ -39,6 +40,8 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
 app.use('/profile', profileRouter);
+app.use('/meeps', meepsRouter);
+
 
 nunjucks.configure('view', {
   autoescape: true,

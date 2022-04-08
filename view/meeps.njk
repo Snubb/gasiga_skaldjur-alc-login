@@ -1,0 +1,68 @@
+{% extends "layout.njk" %}
+{% block  content %}
+
+<main class="container">
+    <form class="d-flex meeps-card" method="get">
+        <input hidden name="limit" value="{{limit}}">
+        <input class="form-control me-2" id="searchKeywordInput" name="keyword" placeholder="Search">
+        <a><button id="searchKeywordButton" type="submit" class="btn btn-outline-primary">Search</button></a>
+    </form>
+    <form action="/meeps" method="get" class="meeps-card">
+        <input hidden name="limit" value="{{limit}}">
+        {% if keyword %}<input hidden name="keyword" value="{{keyword}}">{% endif %}
+        <select id="sort" name="sort" class="form-select" aria-label="Default select example" onchange="this.form.submit()">
+            <option selected disabled hidden>Sort by {% if sort %}{{ sort | title}}{% else %} Date {% endif %}</option>
+            <option value="date">Date</option>
+            <option value="alphabetically">Alphabetically</option>
+            <option value="random">Random</option>
+        </select>
+    </form>
+
+    <ul>
+        {% for item in items %}
+                <div class="card meeps-card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{item.title}}</h5>
+                        <p class="card-text">{{item.body}}</p>
+                    </div>
+                </div>
+        {% endfor %}
+    </ul>
+    <div class="container page-wheel">
+        <div class="row justify-content-md-center">
+            {% if (page - 1) != 0 %}
+                <div class="col-md-auto wheel-item">
+                    <form action="/meeps" method="get">
+                        {% if keyword %}<input hidden name="keyword" value="{{keyword}}">{% endif %}
+                        <input hidden name="limit" value="{{limit}}">
+                        <input hidden name="sort" value="{{sort}}">
+                        <input hidden name="page" value="{{ page - 1 }}"></input>
+                        <button type="submit" class="btn wheel-item-button"><</button>
+                    </form>
+                </div>
+            {% endif %}
+            <div class="col-md-auto wheel-item">
+                <form action="/meeps" method="get">
+                    {% if keyword %}<input hidden name="keyword" value="{{keyword}}">{% endif %}
+                    <input hidden name="limit" value="{{limit}}">
+                    <input hidden name="sort" value="{{sort}}">
+                    <input hidden name="page" value="{{ page }}"></input>
+                    <button disabled type="submit" class="btn wheel-item-button">{{ page }}</button>
+                </form>
+            </div>
+            {% if (page) != numOfPages %} 
+                <div class="col-md-auto wheel-item">
+                    <form action="/meeps" method="get">
+                        {% if keyword %}<input hidden name="keyword" value="{{keyword}}">{% endif %}
+                        <input hidden name="limit" value="{{limit}}">
+                        <input hidden name="sort" value="{{sort}}">
+                        <input hidden name="page" value="{{ page + 1 }}"></input>
+                        <button type="submit" class="btn wheel-item-button">></button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <script src="/javascripts/search.js"></script>
+{% endblock %}
+</main>
